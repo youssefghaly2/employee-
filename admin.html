@@ -117,3 +117,122 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإدارة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button.approve {
+            background-color: #28a745;
+        }
+        button.reject {
+            background-color: #dc3545;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>لوحة تحكم الإدارة</h1>
+        <table id="requestsTable">
+            <thead>
+                <tr>
+                    <th>اسم الموظف</th>
+                    <th>نوع الإجازة</th>
+                    <th>تاريخ البداية</th>
+                    <th>تاريخ النهاية</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم إضافة الطلبات هنا -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // استرجاع طلبات الإجازة من التخزين المحلي (Local Storage)
+        const leaveRequests = JSON.parse(localStorage.getItem('leaveRequests')) || [];
+
+        const requestsTable = document.getElementById('requestsTable').getElementsByTagName('tbody')[0];
+
+        // دالة لعرض الطلبات في الجدول
+        function displayRequests() {
+            requestsTable.innerHTML = '';
+            leaveRequests.forEach((request, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.employeeName}</td>
+                    <td>${request.leaveType}</td>
+                    <td>${request.startDate}</td>
+                    <td>${request.endDate}</td>
+                    <td>
+                        <button class="approve" onclick="approveRequest(${index})">موافقة</button>
+                        <button class="reject" onclick="rejectRequest(${index})">رفض</button>
+                    </td>
+                `;
+                requestsTable.appendChild(row);
+            });
+        }
+
+        // دالة لقبول الطلب
+        function approveRequest(index) {
+            leaveRequests[index].status = 'Approved';
+            alert('تمت الموافقة على الطلب.');
+            localStorage.setItem('leaveRequests', JSON.stringify(leaveRequests));
+            displayRequests();
+        }
+
+        // دالة لرفض الطلب
+        function rejectRequest(index) {
+            leaveRequests[index].status = 'Rejected';
+            alert('تم رفض الطلب.');
+            localStorage.setItem('leaveRequests', JSON.stringify(leaveRequests));
+            displayRequests();
+        }
+
+        // عرض الطلبات عند تحميل الصفحة
+        window.onload = displayRequests;
+    </script>
+
+</body>
+</html>
