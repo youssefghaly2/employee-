@@ -1,0 +1,29 @@
+<script>
+    const form = document.getElementById('leaveForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // جمع بيانات الطلب
+        const employeeName = document.getElementById('employeeName').value;
+        const leaveType = document.getElementById('leaveType').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        
+        const leaveRequest = {
+            employeeName,
+            leaveType,
+            startDate,
+            endDate,
+            status: 'Pending'
+        };
+        
+        // استرجاع الطلبات المخزنة سابقاً وتحديثها
+        let leaveRequests = JSON.parse(localStorage.getItem('leaveRequests')) || [];
+        leaveRequests.push(leaveRequest);
+        localStorage.setItem('leaveRequests', JSON.stringify(leaveRequests));
+        
+        // إعادة ضبط النموذج
+        alert('تم إرسال الطلب بنجاح!');
+        form.reset();
+    });
+</script>
