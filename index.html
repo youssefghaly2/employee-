@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج تسجيل الإجازات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>نموذج تسجيل الإجازات</h1>
+        <form id="leaveForm">
+            <label for="employeeName">اسم الموظف</label>
+            <input type="text" id="employeeName" name="employeeName" placeholder="أدخل اسمك" required>
+
+            <label for="leaveType">نوع الإجازة</label>
+            <select id="leaveType" name="leaveType" required>
+                <option value="annual">دورية</option>
+                <option value="sick">طارئة</option>
+            </select>
+
+            <label for="startDate">تاريخ البداية</label>
+            <input type="date" id="startDate" name="startDate" required>
+
+            <label for="endDate">تاريخ النهاية</label>
+            <input type="date" id="endDate" name="endDate" required>
+
+            <button type="submit">إرسال الطلب</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('leaveForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('تم إرسال الطلب بنجاح!');
+            form.reset();
+        });
+    </script>
+    
+</body>
+</html>
